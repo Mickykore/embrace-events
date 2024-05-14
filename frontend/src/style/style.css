@@ -1,0 +1,32 @@
+#timer {
+    width: 50%; }
+    @media (max-width: 991.98px) {
+      #timer {
+        width: 100%; } }
+    #timer .time {
+      width: 25%;
+      font-size: 38px;
+      font-weight: 200;
+      border-left: 1px solid rgba(0, 0, 0, 0.05);
+      color: #6b76ff; }
+      #timer .time:first-child {
+        border-left: transparent; }
+      #timer .time span {
+        font-size: 16px;
+        display: block;
+        color: #000000; }
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Change the opacity as needed */
+}
+
+@media (min-width: 575.98px) {
+  .vh-101 {
+    min-height: calc(100vh - 450px); /* Adjusted height for smaller screens */
+  }
+}
