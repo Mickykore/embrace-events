@@ -37,7 +37,7 @@ const HeroSection = () => {
         <Row className="no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
           <Col xl={10} className="ftco-animate" data-scrollax="properties: { translateY: '70%' }">
             <h1 className="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"> The Ethiopian Holy <br/><span></span></h1>
-            <p className="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"  style={{ fontFamily: 'Jaro, sans-serif'}}>June 30, 2024. Addis Ababa, Meskel Square</p>
+            <p className="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"  style={{ fontFamily: 'Jaro, sans-serif'}}>June 30, 2024. Addis Ababa, Meskel Square, A.A Bazar & Exhibition Center</p>
             <div id="timer" className="d-flex mb-3">
               <div className="time" id="days">{timeLeft.days}</div>
               <div className="time pl-4" id="hours">{timeLeft.hours}</div>

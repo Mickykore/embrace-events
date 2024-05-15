@@ -33,7 +33,7 @@ const Footer = () => {
             <h2>Have a Questions?</h2>
             <ul className="list-unstyled">
               <li><span><FaMapMarkerAlt /></span><span className="text ps-2">Mekanisa Abo Mazoriya, Addis Ababa, Ethiopia</span></li>
-              <li><span ><FaFacebook /></span><a href="#"><span className="text ps-2">+251987298989</span></a></li>
+              <li><span ><FaPhone /></span><a href="#"><span className="text ps-2">+251987298989</span></a></li>
               <li><span><FaEnvelope /></span><a href="#"><span className="text ps-2">info@embracevents.com</span></a></li>
             </ul>
           </Col>
@@ -41,9 +41,9 @@ const Footer = () => {
         <Row>
           <Col md={12} className="text-center">
           <ul className="list-unstyled list-inline">
-              <li className="list-inline-item"><a href="#"><span className="icon-twitter"><FaTwitter size={26}/></span></a></li>
-              <li className="list-inline-item"><a href="#"><span className="icon-facebook"><FaFacebook size={26}/></span></a></li>
-              <li className="list-inline-item"><a href="#"><span className="icon-instagram"><FaInstagram size={26}/></span></a></li>
+              {/* <li className="list-inline-item"><a href="#"><span className="icon-twitter"><FaTwitter size={26}/></span></a></li> */}
+              <li className="list-inline-item"><a href="https://www.facebook.com/profile.php?id=61558596520935&mibextid=rS40aB7S9Ucbxw6v" target="_blank" rel="noopener noreferrer"><span className="icon-facebook"><FaFacebook size={26}/></span></a></li>
+              <li className="list-inline-item"><a href="https://www.instagram.com/embracevents" target="_blank" rel="noopener noreferrer"><span className="icon-instagram"><FaInstagram size={26}/></span></a></li>
             </ul>
             <p>
               &copy;{new Date().getFullYear()} All rights reserved
