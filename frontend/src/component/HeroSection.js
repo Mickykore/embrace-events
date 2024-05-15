@@ -5,8 +5,8 @@ import banner from '../assets/banner.png';
 
 const HeroSection = () => {
   const calculateTimeLeft = () => {
-    let year = new Date().getFullYear();
-    const difference = +new Date(`01/01/${year + 1}`) - +new Date();
+    const june30ThisYear = new Date(new Date().getFullYear(), 5, 30);
+    const difference = june30ThisYear - new Date();
     let timeLeft = {};
 
     if (difference > 0) {
