@@ -20,7 +20,7 @@ const createPayment = async (req, res) => {
     const callback_url = `${publicUrl}/api/payment/verifypayment`;
     const return_url = `${publicUrl}`;
 
-    const amount = Ticket.findOne({ _id: ticketID }).then((ticket) => {
+    const amount = await Ticket.findOne({ _id: ticketID }).then((ticket) => {
         if (ticketType === 'standard') {
             return ticket.standardAmount;
         } else if (ticketType === 'vip') {
