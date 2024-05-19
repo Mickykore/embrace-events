@@ -17,20 +17,16 @@ const ticketSchema = new mongoose.Schema({
         type: Date,
         required: true
     },
-    ticketID: {
-        type: String,
-        required: true
-    },
-    ticketType: {
-        type: String,
-        required: true
-    },
-    price: {
+    standardAmount: {
         type: Number,
         required: true
     },
-    status: {
-        type: String,
-        default: 'pending'
-    }
+    vipAmount: {
+        type: Number,
+        required: true
+    },
 });
+
+const Ticket = mongoose.model('Ticket', ticketSchema);
+
+module.exports = Ticket;

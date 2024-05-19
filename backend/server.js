@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const paymentRoute = require('./routes/paymentRoute');
+const tiicketRoute = require('./routes/ticketRoute');
 
 
 const app = express();
@@ -26,8 +27,13 @@ app.get('/', (req, res) => {
 });
 //routes
 app.use('/api/payment', paymentRoute);
+app.use('/api/tickets', tiicketRoute);
 
 
 
-const port = process.env.PORT || 6000;
-app.listen(port, () => console.log(`server started on port ${port}`));
+const port = process.env.PORT || 5000;
+mongoose.connect(process.env.MONGO_URI) 
+.then(() => {
+    console.log('connected to db');
+    app.listen(port, () => console.log(`server started on port ${port}`));
+}).catch(err => console.log(err));

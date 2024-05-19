@@ -1,24 +1,32 @@
+const mongoose = require('mongoose');
+const TicketTransaction = require('../models/ticketTransactionModel'); // Import TicketTransaction model
+const Ticket = require('../models/ticketModel');
+
 const Chapa = require('chapa-nodejs').Chapa;
 
 const chapa = new Chapa({
     secretKey: process.env.API_KEY,
-  });
+});
 
 const createPayment = async (req, res) => {
-    const { ticketID, ticketType, email, fname, lname, currency } = req.body;
+    const { ticketID, ticketType, email, phone, fname, lname, currency } = req.body;
 
     const chapa_tx_ref = await chapa.generateTransactionReference();
     const date = new Date().toISOString().slice(0, 10); // Get YYYY-MM-DD format
     const time = new Date().toISOString().slice(11, 16).replace(":", ""); // Get HH:MM format (without seconds)
-    // ${ticketID}-
     const tx_ref = `${chapa_tx_ref}-${date}-${time}`;
 
     const publicUrl = 'https://embrace-events.onrender.com'; // Replace with your actual Localtunnel URL
     const callback_url = `${publicUrl}/api/payment/verifypayment`;
     const return_url = `${publicUrl}`;
 
-    // const amount = Ticket.find({ ticketID: ticketID, ticketType }).price || 250;
-    const amount = 250;
+    const amount = Ticket.findOne({ _id: ticketID }).then((ticket) => {
+        if (ticketType === 'standard') {
+            return ticket.standardAmount;
+        } else if (ticketType === 'vip') {
+            return ticket.vipAmount;
+        }
+    });
 
     try {
         const response = await chapa.initialize({
@@ -35,42 +43,53 @@ const createPayment = async (req, res) => {
                 description: 'Test Description',
             },
         });
-        console.log(response);
-        res.status(200).json({response, tx_ref});
+
+        // Create TicketTransaction with pending status
+        const ticketTransaction = new TicketTransaction({
+            ticketID: ticketID,
+            ticketType: ticketType,
+            email: email,
+            phone: phone,
+            fname: fname,
+            lname: lname,
+            currency: currency,
+            tx_ref: tx_ref,
+            amount: amount,
+            ticketNumber: generateTicketNumber(), // Generate random 5-digit ticket number
+            status: 'pending'
+        });
+
+        await ticketTransaction.save();
+
+        res.status(200).json({ response, tx_ref });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-
 }
 
 const verifyPayment = async (req, res) => {
     const { tx_ref } = req.body;
-    console.log("hi", req.body);
 
     try {
-        const response = await chapa.verify({tx_ref});
-        // if (response.status === 'success') {
-        //     // Update the ticket status to 'paid'
-        //     Ticket.findOneAndUpdate({ tx_ref: tx_ref }, { status: 'paid' }, { new: true }, (err, doc) => {
-        //         if (err) {
-        //             res.status(500).json({ message: err.message });
-        //         }
-        //     });
-        // } else {
-        //     // Update the ticket status to 'failed'
-        //     Ticket.findOneAndUpdate({ tx_ref: tx_ref }, { status: 'failed' }, { new: true }, (err, doc) => {
-        //         if (err) {
-        //             res.status(500).json({ message: err.message });
-        //         }
-        //     });
-        // }
+        const response = await chapa.verify({ tx_ref });
+
+        // Update TicketTransaction status if payment is successful
+        if (response.status === 'success') {
+            await TicketTransaction.findOneAndUpdate({ tx_ref: tx_ref }, { status: 'paid' });
+        }
+
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
 
-module.exports = { 
+// Function to generate random 5-digit ticket number
+function generateTicketNumber() {
+    return Math.floor(10000 + Math.random() * 90000);
+}
+
+module.exports = {
     createPayment,
     verifyPayment
 };
