@@ -60,9 +60,12 @@ const createPayment = async (req, res) => {
         });
 
         await ticketTransaction.save();
+        console.log(response);
+        console.log("tx", ticketTransaction)
 
         res.status(200).json({ response, tx_ref });
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message });
     }
 }
@@ -78,8 +81,11 @@ const verifyPayment = async (req, res) => {
             await TicketTransaction.findOneAndUpdate({ tx_ref: tx_ref }, { status: 'paid' });
         }
 
+        console.log(response);
+
         res.status(200).json(response);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message });
     }
 }
