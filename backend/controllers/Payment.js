@@ -79,7 +79,7 @@ const verifyPayment = async (req, res) => {
     console.log(req.body, trx_ref)
 
     try {
-        const response = await chapa.verify({ trx_ref });
+        const response = await chapa.verify({ tx_ref: trx_ref });
 
         // Update TicketTransaction status if payment is successful
         if (response.status === 'success') {
