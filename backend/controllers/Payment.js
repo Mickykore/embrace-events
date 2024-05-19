@@ -76,6 +76,7 @@ const createPayment = async (req, res) => {
 
 const verifyPayment = async (req, res) => {
     const { tx_ref } = req.body;
+    console.log(req.body)
 
     try {
         const response = await chapa.verify({ tx_ref });
