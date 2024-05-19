@@ -75,7 +75,7 @@ const createPayment = async (req, res) => {
 }
 
 const verifyPayment = async (req, res) => {
-    const { tx_ref } = req.body;
+    const { trx_ref} = req.body;
     console.log(req.body)
 
     try {
@@ -83,7 +83,7 @@ const verifyPayment = async (req, res) => {
 
         // Update TicketTransaction status if payment is successful
         if (response.status === 'success') {
-            await TicketTransaction.findOneAndUpdate({ tx_ref: tx_ref }, { status: 'paid' });
+            await TicketTransaction.findOneAndUpdate({ tx_ref: trx_ref }, { status: 'paid' });
         }
 
         console.log(response);
