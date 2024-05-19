@@ -13,9 +13,9 @@ const createPayment = async (req, res) => {
     // ${ticketID}-
     const tx_ref = `${chapa_tx_ref}-${date}-${time}`;
 
-    const publicUrl = 'https://yummy-dots-judge.loca.lt'; // Replace with your actual Localtunnel URL
+    const publicUrl = 'https://embrace-events.onrender.com/'; // Replace with your actual Localtunnel URL
     const callback_url = `${publicUrl}/api/payment/verifypayment`;
-    const return_url = `${publicUrl}/api/payment/verifypayment`;
+    const return_url = `${publicUrl}`;
 
     // const amount = Ticket.find({ ticketID: ticketID, ticketType }).price || 250;
     const amount = 250;
@@ -35,7 +35,7 @@ const createPayment = async (req, res) => {
                 description: 'Test Description',
             },
         });
-
+        console.log(response);
         res.status(200).json({response, tx_ref});
     } catch (error) {
         res.status(500).json({ message: error.message });
