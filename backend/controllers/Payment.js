@@ -28,6 +28,9 @@ const createPayment = async (req, res) => {
         }
     });
 
+    console.log("amount", amount);
+    console.log(req.body)
+
     try {
         const response = await chapa.initialize({
             first_name: fname,
@@ -44,6 +47,7 @@ const createPayment = async (req, res) => {
             },
         });
 
+        console.log("response", response);
         // Create TicketTransaction with pending status
         const ticketTransaction = new TicketTransaction({
             ticketID: ticketID,
@@ -66,7 +70,7 @@ const createPayment = async (req, res) => {
         res.status(200).json({ response, tx_ref });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ error });
     }
 }
 
