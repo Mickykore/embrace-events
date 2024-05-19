@@ -13,7 +13,7 @@ const createPayment = async (req, res) => {
     // ${ticketID}-
     const tx_ref = `${chapa_tx_ref}-${date}-${time}`;
 
-    const publicUrl = 'https://embrace-events.onrender.com/'; // Replace with your actual Localtunnel URL
+    const publicUrl = 'https://embrace-events.onrender.com'; // Replace with your actual Localtunnel URL
     const callback_url = `${publicUrl}/api/payment/verifypayment`;
     const return_url = `${publicUrl}`;
 
