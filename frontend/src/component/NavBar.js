@@ -6,14 +6,17 @@ const NavBar = () => {
   return (
     <Navbar bg="light" variant="light" expand="lg" style={{ fontFamily: 'Ubuntu Sans, sans-serif' }} className="sticky-top">
       <Container className="justify-content-between">
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img src={embraceLogo} alt="Embrace Logo" style={{ maxWidth: '120px', maxHeight: '100px', marginRight: '10px' }} />
           <span>Events.</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="m-auto text-dark">
-            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/tickets">Tickets</Nav.Link>
+            <Nav.Link href="/payment">Payment</Nav.Link>
+            <Nav.Link href="/transaction">transaction</Nav.Link>
             <Nav.Link href="#about">About</Nav.Link>
             <Nav.Link href="#schedule">Events</Nav.Link>
             <Nav.Link href="#blog">Blog</Nav.Link>

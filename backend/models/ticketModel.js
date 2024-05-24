@@ -1,3 +1,4 @@
+// models/ticketModel.js
 const mongoose = require('mongoose');
 
 const ticketSchema = new mongoose.Schema({
@@ -28,7 +29,8 @@ const ticketSchema = new mongoose.Schema({
     location: {
         type: String,
         required: true
-    }
+    },
+    image: { type: Object, default: {} },
 });
 
 const Ticket = mongoose.model('Ticket', ticketSchema);

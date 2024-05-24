@@ -5,7 +5,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
 const paymentRoute = require('./routes/paymentRoute');
-const tiicketRoute = require('./routes/ticketRoute');
+const ticketRoute = require('./routes/ticketRoute');
+const transactionRoute = require('./routes/transactionRoute');
 
 
 const app = express();
@@ -20,6 +21,9 @@ app.use(cors(
 ));
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// Serve static files from the 'uploads' directory
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 
 //routes
 app.get('/', (req, res) => {
@@ -27,7 +31,8 @@ app.get('/', (req, res) => {
 });
 //routes
 app.use('/api/payment', paymentRoute);
-app.use('/api/tickets', tiicketRoute);
+app.use('/api/tickets', ticketRoute);
+app.use('/api/transactions', transactionRoute);
 
 
 

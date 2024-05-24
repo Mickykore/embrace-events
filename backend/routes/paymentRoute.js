@@ -1,4 +1,4 @@
-const {createPayment, verifyPayment} = require('../controllers/Payment');
+const {createPayment, verifyPayment} = require('../controllers/PaymentController');
 
 const router = require('express').Router();
 

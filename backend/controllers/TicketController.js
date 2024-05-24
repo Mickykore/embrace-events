@@ -1,5 +1,8 @@
 const Ticket = require('../models/ticketModel');
 const Joi = require('joi');
+const { upload, fileSizeFormatter } = require('../config/fileUpload');
+const path = require('path');
+const fs = require('fs');
 
 // Joi schema for ticket validation
 const ticketSchema = Joi.object({
@@ -9,6 +12,7 @@ const ticketSchema = Joi.object({
     endDate: Joi.date().iso().required(),
     standardAmount: Joi.number().required(),
     vipAmount: Joi.number().required(),
+    location: Joi.string().required(),
 });
 
 // Create a new ticket
@@ -20,10 +24,35 @@ const createTicket = async (req, res) => {
             return res.status(400).json({ message: error.details[0].message });
         }
 
-        const newTicket = new Ticket(req.body);
-        await newTicket.save();
-        res.status(201).json(newTicket);
+        const { title, description, startDate, endDate, standardAmount, vipAmount, location } = req.body;
+
+        let imageInfo = {};
+        console.log("file name", req.file.filename)
+        if (req.file) {
+            const imagePath = `http://localhost:5000/uploads/${req.file.filename}`;
+            console.log("image path", imagePath)
+            imageInfo = {
+                fileName: req.file.filename,
+                filePath: imagePath,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2),
+            };
+        }
+
+        const ticket = await Ticket.create({
+            title,
+            description,
+            startDate,
+            endDate,
+            standardAmount,
+            vipAmount,
+            location,
+            image: imageInfo,
+        });
+
+        res.status(201).json(ticket);
     } catch (error) {
+        console.log(error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -32,6 +61,7 @@ const createTicket = async (req, res) => {
 const getTickets = async (req, res) => {
     try {
         const tickets = await Ticket.find();
+        console.log("tickets", tickets)
         res.status(200).json(tickets);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -58,9 +88,36 @@ const updateTicket = async (req, res) => {
             return res.status(400).json({ message: error.details[0].message });
         }
 
-        const ticket = await Ticket.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!ticket) return res.status(404).json({ message: 'Ticket not found' });
-        res.status(200).json(ticket);
+        let imageInfo = {};
+        if (req.file) {
+            const imagePath = path.join('uploads', req.file.filename.replace(/\\/g, '/'));
+            imageInfo = {
+                fileName: req.file.filename,
+                filePath: imagePath,
+                fileType: req.file.mimetype,
+                fileSize: fileSizeFormatter(req.file.size, 2),
+            };
+        }
+
+        // Find the ticket by ID
+        let ticket = await Ticket.findById(req.params.id);
+        if (!ticket) {
+            return res.status(404).json({ message: 'Ticket not found' });
+        }
+
+        // Update ticket properties
+        ticket.title = req.body.title;
+        ticket.description = req.body.description;
+        ticket.startDate = req.body.startDate;
+        ticket.endDate = req.body.endDate;
+        ticket.standardAmount = req.body.standardAmount;
+        ticket.vipAmount = req.body.vipAmount;
+        ticket.location = req.body.location;
+        ticket.image = imageInfo; // Update image information
+
+        // Save the updated ticket
+        const updatedTicket = await ticket.save();
+        res.status(200).json(updatedTicket);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

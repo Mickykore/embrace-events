@@ -7,9 +7,10 @@ const {
     updateTicket,
     deleteTicket
 } = require('../controllers/TicketController');
+const { upload } = require('../config/fileUpload');
 
 // Route to create a new ticket
-router.post('/', createTicket);
+router.post('/', upload.single('image') ,createTicket);
 
 // Route to get all tickets
 router.get('/', getTickets);
@@ -18,7 +19,7 @@ router.get('/', getTickets);
 router.get('/:id', getTicketById);
 
 // Route to update a ticket by ID
-router.put('/:id', updateTicket);
+router.put('/:id', upload.single('image'), updateTicket);
 
 // Route to delete a ticket by ID
 router.delete('/:id', deleteTicket);
