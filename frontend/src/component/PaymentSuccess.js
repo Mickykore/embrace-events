@@ -16,7 +16,7 @@ const PaymentSuccess = () => {
     const { transaction, loading, error } = useSelector((state) => state.transactions);
 
     useEffect(() => {
-        if (tx_ref && ticketID) {
+        if (tx_ref) {
             dispatch(verifyPaymentThunk({ tx_ref }));
             dispatch(getTransactionByTicketIDThunk(tx_ref));
         }
