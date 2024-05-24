@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
     useEffect(() => {
         if (tx_ref && ticketID) {
             dispatch(verifyPaymentThunk({ tx_ref }));
-            dispatch(getTransactionByTicketIDThunk(ticketID));
+            dispatch(getTransactionByTicketIDThunk(tx_ref));
         }
     }, [dispatch, tx_ref, ticketID]);
 

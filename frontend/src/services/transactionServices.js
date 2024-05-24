@@ -12,9 +12,9 @@ export const getAllTransactions = async () => {
     }
 };
 
-export const getTransactionByTicketID = async (ticketID) => {
+export const getTransactionByTicketID = async (tx_ref) => {
     try {
-        const response = await axios.get(`${API_URL}/${ticketID}`);
+        const response = await axios.get(`${API_URL}/${tx_ref}`);
         return response.data;
     } catch (error) {
         throw error.response.data;
