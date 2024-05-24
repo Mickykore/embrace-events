@@ -22,6 +22,9 @@ const PaymentSuccess = () => {
         }
     }, [dispatch, tx_ref, ticketID]);
 
+    console.log("tx_ref", tx_ref);
+    console.log("ticketID", ticketID);
+
     console.log('Transaction:', transaction);
 
     const handlePrint = () => {
