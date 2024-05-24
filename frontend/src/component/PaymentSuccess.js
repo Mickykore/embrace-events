@@ -22,6 +22,8 @@ const PaymentSuccess = () => {
         }
     }, [dispatch, tx_ref, ticketID]);
 
+    console.log('Transaction:', transaction);
+
     const handlePrint = () => {
         window.print();
     };
