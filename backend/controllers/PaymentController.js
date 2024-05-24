@@ -17,6 +17,7 @@ const createPayment = async (req, res) => {
     const tx_ref = `${chapa_tx_ref}-${date}-${time}`;
 
     const publicUrl = 'https://embrace-events.onrender.com'; // Replace with your actual Localtunnel URL
+    const frontEndUrl = 'https://embrace-events.vercel.app'
     const callback_url = `${publicUrl}/api/payment/verifypayment`;
     const return_url = `${publicUrl}/payment/success?tx_ref=${tx_ref}&ticketID=${ticketID}`;
 
