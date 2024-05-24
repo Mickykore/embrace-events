@@ -14,8 +14,9 @@ export const getAllTransactions = async () => {
 
 export const getTransactionByTicketID = async (tx_ref) => {
     try {
-        console.log(tx_ref);
-        const response = await axios.get(`${API_URL}/${tx_ref}`);
+        console.log('iddddddddddd', tx_ref);
+        const response = await axios.get(`${API_URL}/${tx_ref}`);4
+        console.log('response', response);
         return response.data;
     } catch (error) {
         throw error.response.data;
