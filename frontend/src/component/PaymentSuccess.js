@@ -26,10 +26,6 @@ const PaymentSuccess = () => {
     console.log("tx_ref succ", tx_ref);
     console.log("ticketID succ", ticketID);
 
-    if (transaction.length > 0) {
-        console.log('Transaction:', transaction[0].email);
-    }
-
     const handlePrint = () => {
         window.print();
     };
@@ -47,7 +43,7 @@ const PaymentSuccess = () => {
         );
     }
 
-    const transactionDetails = transaction[0];
+    const transactionDetails = transaction ? transaction[0] : null;
 
     return (
         <div className="container">
