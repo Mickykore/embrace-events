@@ -17,13 +17,12 @@ const PaymentSuccess = () => {
 
     useEffect(() => {
         if (tx_ref) {
-            dispatch(verifyPaymentThunk({ tx_ref }));
             dispatch(getTransactionByTicketIDThunk(tx_ref));
         }
     }, [dispatch, tx_ref, ticketID]);
 
-    console.log("tx_ref", tx_ref);
-    console.log("ticketID", ticketID);
+    console.log("tx_ref succ", tx_ref);
+    console.log("ticketID succ", ticketID);
 
     console.log('Transaction:', transaction);
 
