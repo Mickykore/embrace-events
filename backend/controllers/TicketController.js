@@ -29,7 +29,7 @@ const createTicket = async (req, res) => {
         let imageInfo = {};
         console.log("file name", req.file.filename)
         if (req.file) {
-            const imagePath = `http://localhost:5000/uploads/${req.file.filename}`;
+            const imagePath = `https://embrace-events.onrender.com/uploads/${req.file.filename}`;
             console.log("image path", imagePath)
             imageInfo = {
                 fileName: req.file.filename,
