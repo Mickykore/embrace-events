@@ -27,10 +27,8 @@ const createTicket = async (req, res) => {
         const { title, description, startDate, endDate, standardAmount, vipAmount, location } = req.body;
 
         let imageInfo = {};
-        console.log("file name", req.file.filename)
         if (req.file) {
             const imagePath = `https://embrace-events.onrender.com/uploads/${req.file.filename}`;
-            console.log("image path", imagePath)
             imageInfo = {
                 fileName: req.file.filename,
                 filePath: imagePath,
@@ -52,7 +50,6 @@ const createTicket = async (req, res) => {
 
         res.status(201).json(ticket);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -61,7 +58,6 @@ const createTicket = async (req, res) => {
 const getTickets = async (req, res) => {
     try {
         const tickets = await Ticket.find();
-        console.log("tickets", tickets)
         res.status(200).json(tickets);
     } catch (error) {
         res.status(500).json({ message: error.message });

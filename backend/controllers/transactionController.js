@@ -18,7 +18,7 @@ const getTransactionByTicketID = async (req, res) => {
     console.log(tx_ref);
     try {
         const transaction = await TicketTransaction.find({ tx_ref });
-        console.log(transaction);
+        console.log("ouuuuuuuuuuu",transaction);
         res.status(200).json(transaction);
     } catch (error) {
         res.status(500).json({ message: error.message });

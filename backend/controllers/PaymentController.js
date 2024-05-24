@@ -29,8 +29,6 @@ const createPayment = async (req, res) => {
         }
     });
 
-    console.log("amount", amount);
-    console.log(req.body)
 
     try {
         const response = await chapa.initialize({
@@ -48,7 +46,6 @@ const createPayment = async (req, res) => {
             },
         });
 
-        console.log("response", response);
         // Create TicketTransaction with pending status
         const ticketTransaction = new TicketTransaction({
             ticketID: ticketID,
@@ -65,19 +62,17 @@ const createPayment = async (req, res) => {
         });
 
         await ticketTransaction.save();
-        console.log(response);
-        console.log("tx", ticketTransaction)
+
 
         res.status(200).json({ response, tx_ref });
     } catch (error) {
-        console.log(error);
+
         res.status(500).json({ error });
     }
 }
 
 const verifyPayment = async (req, res) => {
     const { trx_ref} = req.body;
-    console.log(req.body, trx_ref)
 
     try {
         const response = await chapa.verify({ tx_ref: trx_ref });
@@ -87,11 +82,9 @@ const verifyPayment = async (req, res) => {
             await TicketTransaction.findOneAndUpdate({ tx_ref: trx_ref }, { status: 'paid' });
         }
 
-        console.log(response);
 
         res.status(200).json(response);
     } catch (error) {
-        console.log(error);
         res.status(500).json({ message: error.message });
     }
 }
