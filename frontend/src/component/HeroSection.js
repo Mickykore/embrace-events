@@ -10,8 +10,6 @@ const HeroSection = () => {
   const { tickets, loading, error } = useSelector((state) => state.tickets);
   const navigate = useNavigate();
 
-  console.log(tickets);
-
   useEffect(() => {
     dispatch(getTicketsThunk());
   }, [dispatch]);
