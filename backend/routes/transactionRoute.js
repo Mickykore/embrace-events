@@ -8,7 +8,7 @@ const {
 const router = express.Router();
 
 router.get('/', getAllTransactions);
-router.get('/:ticketID', getTransactionByTicketID);
+router.get('/:tx_ref', getTransactionByTicketID);
 router.get('/filter', filterTransactions);
 
 module.exports = router;
